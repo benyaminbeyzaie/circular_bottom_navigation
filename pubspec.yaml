@@ -1,0 +1,16 @@
+name: circular_bottom_navigation
+description: A new Flutter project.
+version: 0.0.1
+author: iman.neofight@gmail.com
+homepage:
+
+environment:
+  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
