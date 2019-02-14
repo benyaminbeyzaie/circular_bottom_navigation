@@ -1,5 +1,8 @@
 library circular_bottom_navigation;
 
+import 'dart:core';
+
+import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:flutter/material.dart';
 
 class CircularBottomNavigation extends StatefulWidget {
@@ -20,37 +23,43 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation>
 
   double barHeight = 60;
   double circleSize = 48;
-  double circleStrokeWidth = 2;
+  double circleStrokeWidth = 4;
   double iconsSize = 32;
 
-  List<String> items = List.of(["Home", "Search", "Reports", "Notification"]);
-  List<double> itemsSelectedState = List.of([1.0, 0.0, 0.0, 0.0]);
+  List<TabItem> tabItems = List.of([
+    new TabItem(Image.network("https://freeiconshop.com/wp-content/uploads/edd/phone-outline.png"),
+        "Home", Colors.blue),
+    new TabItem(Image.network("https://freeiconshop.com/wp-content/uploads/edd/phone-outline.png"),
+        "Search", Colors.orange),
+    new TabItem(Image.network("https://freeiconshop.com/wp-content/uploads/edd/phone-outline.png"),
+        "Reports", Colors.red),
+    new TabItem(Image.network("https://freeiconshop.com/wp-content/uploads/edd/phone-outline.png"),
+        "Notifications", Colors.cyan)
+  ]);
+  List<double> _itemsSelectedState = List.of([1.0, 0.0, 0.0, 0.0]);
 
   @override
   void initState() {
     super.initState();
-    itemsController = new AnimationController(
-        vsync: this, duration: Duration(milliseconds: 300));
+    itemsController = new AnimationController(vsync: this, duration: Duration(milliseconds: 300));
     itemsController.addListener(() {
       setState(() {
-        itemsSelectedState.asMap().forEach((i, value) {
+        _itemsSelectedState.asMap().forEach((i, value) {
           if (i == previousSelectedPos) {
-            itemsSelectedState[previousSelectedPos] =
-                1.0 - itemsAnimation.value;
+            _itemsSelectedState[previousSelectedPos] = 1.0 - itemsAnimation.value;
           } else if (i == selectedPos) {
-            itemsSelectedState[selectedPos] = itemsAnimation.value;
+            _itemsSelectedState[selectedPos] = itemsAnimation.value;
           } else {
-            itemsSelectedState[i] = 0.0;
+            _itemsSelectedState[i] = 0.0;
           }
         });
       });
     });
 
-    selectedPosAnimation = makeSelectedPosAnimation(
-        selectedPos.toDouble(), selectedPos.toDouble());
+    selectedPosAnimation = makeSelectedPosAnimation(selectedPos.toDouble(), selectedPos.toDouble());
 
-    itemsAnimation = Tween(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(parent: itemsController, curve: _animationsCurve));
+    itemsAnimation = Tween(begin: 0.0, end: 1.0)
+        .animate(CurvedAnimation(parent: itemsController, curve: _animationsCurve));
   }
 
   Animation<double> makeSelectedPosAnimation(double begin, double end) {
@@ -65,13 +74,12 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation>
   @override
   Widget build(BuildContext context) {
     double full_width = MediaQuery.of(context).size.width;
-    double full_height =
-        this.barHeight + (this.circleSize / 2) + this.circleStrokeWidth;
-    double section_width = full_width / this.items.length;
+    double full_height = this.barHeight + (this.circleSize / 2) + this.circleStrokeWidth;
+    double section_width = full_width / this.tabItems.length;
 
     //Create the boxes Rect
     List<Rect> boxes = List();
-    items.asMap().forEach((i, rect) {
+    tabItems.asMap().forEach((i, tabItem) {
       double left = i * section_width;
       double top = full_height - this.barHeight;
       double right = left + section_width;
@@ -90,9 +98,12 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation>
     // This is the bar background (bottom section of our view)
     children.add(Positioned(
       child: Container(
-        color: Colors.pink,
         width: full_width,
         height: barHeight,
+        decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            color: Colors.white,
+            boxShadow: [new BoxShadow(color: Colors.grey, blurRadius: 2.0)]),
       ),
       top: full_height - barHeight,
       left: 0,
@@ -105,12 +116,10 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation>
         height: circleSize,
         decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.green,
+            color: tabItems[selectedPos].color,
             border: Border.all(width: circleStrokeWidth, color: Colors.white)),
       ),
-      left: (selectedPosAnimation.value * section_width) +
-          (section_width / 2) -
-          (circleSize / 2),
+      left: (selectedPosAnimation.value * section_width) + (section_width / 2) - (circleSize / 2),
       top: 0,
     ));
 
@@ -119,20 +128,17 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation>
       // Icon
       children.add(
         Positioned(
-          child: Icon(
-            Icons.home,
-            size: iconsSize,
-          ),
+          child: tabItems[pos].icon,
           left: r.center.dx - (iconsSize / 2),
-          top: r.center.dy -
-              (iconsSize / 2) -
-              (itemsSelectedState[pos] * (barHeight / 2)),
+          top: r.center.dy - (iconsSize / 2) - (_itemsSelectedState[pos] * (barHeight / 2)),
+          width: iconsSize,
+          height: iconsSize,
         ),
       );
 
       // Text
       double textHeight = full_height - circleSize;
-      double opacity = itemsSelectedState[pos];
+      double opacity = _itemsSelectedState[pos];
       if (opacity < 0.0) {
         opacity = 0.0;
       } else if (opacity > 1.0) {
@@ -146,10 +152,9 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation>
               child: Opacity(
             opacity: opacity,
             child: Text(
-              "Item $pos",
+              tabItems[pos].title,
               textAlign: TextAlign.center,
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(fontWeight: FontWeight.bold, color: tabItems[pos].color),
             ),
           )),
         ),
@@ -157,7 +162,7 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation>
         top: r.top +
             (circleSize / 2) -
             (circleStrokeWidth * 2) +
-            ((1.0 - itemsSelectedState[pos]) * textHeight),
+            ((1.0 - _itemsSelectedState[pos]) * textHeight),
       ));
 
       if (pos != selectedPos) {
@@ -169,8 +174,8 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation>
 
               itemsController.forward(from: 0.0);
 
-              selectedPosAnimation = makeSelectedPosAnimation(
-                  previousSelectedPos.toDouble(), selectedPos.toDouble());
+              selectedPosAnimation =
+                  makeSelectedPosAnimation(previousSelectedPos.toDouble(), selectedPos.toDouble());
               selectedPosAnimation.addListener(onSelectedPosAnimate);
             },
           ),
