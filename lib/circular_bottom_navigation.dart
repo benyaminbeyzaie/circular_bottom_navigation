@@ -23,6 +23,7 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation> {
     double full_height =
         this.barHeight + (this.circleSize / 2) + this.circleStrokeWidth;
 
+    //Create the boxes Rect
     List<Rect> boxes = List();
     items.asMap().forEach((i, rect) {
       double left = i * (full_width / this.items.length);
@@ -33,10 +34,14 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation> {
     });
 
     List<Widget> children = List();
+
+    // This is the full view transparent background (have free space for circle)
     children.add(Container(
       width: full_width,
       height: full_height,
     ));
+
+    // This is the bar background (bottom section of our view)
     children.add(Positioned(
       child: Container(
         color: Colors.pink,
@@ -46,6 +51,8 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation> {
       top: full_height - barHeight,
       left: 0,
     ));
+
+    // This is the circle handle
     children.add(new Positioned(
       child: Container(
         width: circleSize,
@@ -58,7 +65,10 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation> {
       left: boxes[selectedPos].center.dx - (circleSize / 2),
       top: 0,
     ));
+
+    //Here are the Icons and texts of items
     boxes.asMap().forEach((int pos, Rect r) {
+      // Icon
       children.add(
         Positioned(
           child: Icon(
@@ -72,6 +82,7 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation> {
         ),
       );
 
+      // Text
       double textHeight = full_height - circleSize;
       children.add(Positioned(
         child: Container(
@@ -79,21 +90,45 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation> {
           height: textHeight,
           child: Center(
               child: Opacity(
-                opacity: itemsSelectedState[pos],
-                child: Text(
-            "Item $pos",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-              )),
+            opacity: itemsSelectedState[pos],
+            child: Text(
+              "Item $pos",
+              textAlign: TextAlign.center,
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+          )),
         ),
         left: r.left,
-        top: r.top + (circleSize / 2) - (circleStrokeWidth * 2) +
+        top: r.top +
+            (circleSize / 2) -
+            (circleStrokeWidth * 2) +
             ((1.0 - itemsSelectedState[pos]) * textHeight),
       ));
+
+      if (pos != selectedPos) {
+        children.add(Positioned.fromRect(
+          child: GestureDetector(
+            onTap: () {
+              print("Tapped on $pos");
+              setState(() {
+                selectedPos = pos;
+                itemsSelectedState.asMap().forEach((i, value) {
+                  if (i == selectedPos) {
+                    itemsSelectedState[i] = 1.0;
+                  } else {
+                    itemsSelectedState[i] = 0.0;
+                  }
+                });
+              });
+            },
+          ),
+          rect: r,
+        ));
+      }
     });
 
-    return new Stack(
+    return Stack(
       children: children,
     );
   }
