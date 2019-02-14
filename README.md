@@ -41,7 +41,7 @@ List<TabItem> tabItems = List.of([
 ```
 
 ### Use this widget everywhere you want
-```java
+```kotlin
 CircularBottomNavigation(
       tabItems,
       selectedCallback: (int selectedPos) {
