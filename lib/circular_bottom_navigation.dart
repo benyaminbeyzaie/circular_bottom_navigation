@@ -25,16 +25,14 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation>
   double circleSize = 48;
   double circleStrokeWidth = 4;
   double iconsSize = 32;
+  Color selectedIconColor = Colors.white;
+  Color normalIconColor = Colors.grey;
 
   List<TabItem> tabItems = List.of([
-    new TabItem(Image.network("https://freeiconshop.com/wp-content/uploads/edd/phone-outline.png"),
-        "Home", Colors.blue),
-    new TabItem(Image.network("https://freeiconshop.com/wp-content/uploads/edd/phone-outline.png"),
-        "Search", Colors.orange),
-    new TabItem(Image.network("https://freeiconshop.com/wp-content/uploads/edd/phone-outline.png"),
-        "Reports", Colors.red),
-    new TabItem(Image.network("https://freeiconshop.com/wp-content/uploads/edd/phone-outline.png"),
-        "Notifications", Colors.cyan)
+    new TabItem(Icons.home, "Home", Colors.blue),
+    new TabItem(Icons.search, "Search", Colors.orange),
+    new TabItem(Icons.layers, "Reports", Colors.red),
+    new TabItem(Icons.notifications, "Notifications", Colors.cyan)
   ]);
   List<double> _itemsSelectedState = List.of([1.0, 0.0, 0.0, 0.0]);
 
@@ -126,13 +124,12 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation>
     //Here are the Icons and texts of items
     boxes.asMap().forEach((int pos, Rect r) {
       // Icon
+      Color iconColor = pos == selectedPos ? selectedIconColor : normalIconColor;
       children.add(
         Positioned(
-          child: tabItems[pos].icon,
+          child: Icon(tabItems[pos].icon, size: iconsSize, color: iconColor,),
           left: r.center.dx - (iconsSize / 2),
-          top: r.center.dy - (iconsSize / 2) - (_itemsSelectedState[pos] * (barHeight / 2)),
-          width: iconsSize,
-          height: iconsSize,
+          top: r.center.dy - (iconsSize / 2) - (_itemsSelectedState[pos] * ((barHeight / 2) + circleStrokeWidth)),
         ),
       );
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 class TabItem {
-  Widget icon;
+  IconData icon;
   String title;
   Color color;
 
