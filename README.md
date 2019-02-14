@@ -40,7 +40,7 @@ List<TabItem> tabItems = List.of([
   ]);
 ```
 
-### Use it widget everywhere you want
+### Use this widget everywhere you want
 ```
 CircularBottomNavigation(
       tabItems,
