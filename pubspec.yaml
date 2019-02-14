@@ -1,8 +1,8 @@
 name: circular_bottom_navigation
-description: A new Flutter project.
+description: Circular Bottom Navigation (or maybe a tab bar)
 version: 0.0.1
-author: iman.neofight@gmail.com
-homepage:
+author: Iman Khoshabi <iman.neofight@gmail.com>
+homepage: https://github.com/imaNNeoFighT/circular_bottom_navigation
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
