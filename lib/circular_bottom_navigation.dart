@@ -16,6 +16,7 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation> {
 
   List<String> items = List.of(["Home", "Search", "Reports", "Notification"]);
   List<double> itemsSelectedState = List.of([1.0, 0.0, 0.0, 0.0]);
+
   @override
   Widget build(BuildContext context) {
     double full_width = MediaQuery.of(context).size.width;
@@ -65,9 +66,31 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation> {
             size: iconsSize,
           ),
           left: r.center.dx - (iconsSize / 2),
-          top: r.center.dy - (iconsSize / 2) - (itemsSelectedState[pos] *(barHeight / 2)),
+          top: r.center.dy -
+              (iconsSize / 2) -
+              (itemsSelectedState[pos] * (barHeight / 2)),
         ),
       );
+
+      double textHeight = full_height - circleSize;
+      children.add(Positioned(
+        child: Container(
+          width: r.width,
+          height: textHeight,
+          child: Center(
+              child: Opacity(
+                opacity: itemsSelectedState[pos],
+                child: Text(
+            "Item $pos",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+              )),
+        ),
+        left: r.left,
+        top: r.top + (circleSize / 2) - (circleStrokeWidth * 2) +
+            ((1.0 - itemsSelectedState[pos]) * textHeight),
+      ));
     });
 
     return new Stack(
