@@ -1,3 +1,4 @@
+import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:flutter/material.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 
@@ -32,7 +33,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      bottomNavigationBar: CircularBottomNavigation(),
+      bottomNavigationBar: CircularBottomNavigation(List.of([
+        new TabItem(Icons.home, "Home", Colors.blue),
+        new TabItem(Icons.search, "Search", Colors.orange),
+        new TabItem(Icons.layers, "Reports", Colors.red),
+        new TabItem(Icons.notifications, "Notifications", Colors.cyan),
+      ])),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

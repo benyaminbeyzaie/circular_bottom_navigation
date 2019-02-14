@@ -6,11 +6,30 @@ import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:flutter/material.dart';
 
 class CircularBottomNavigation extends StatefulWidget {
+  final List<TabItem> tabItems;
+  final int selectedPos;
+  final double barHeight;
+  final double circleSize;
+  final double circleStrokeWidth;
+  final double iconsSize;
+  final Color selectedIconColor;
+  final Color normalIconColor;
+
+  CircularBottomNavigation(this.tabItems,
+      {this.selectedPos = 0,
+      this.barHeight = 60,
+      this.circleSize = 48,
+      this.circleStrokeWidth = 4,
+      this.iconsSize = 32,
+      this.selectedIconColor = Colors.white,
+      this.normalIconColor = Colors.grey})
+      : assert(tabItems != null && tabItems.length != 0, "tabItems is required");
+
   @override
-  State<StatefulWidget> createState() => _CircularBottomNavigation();
+  State<StatefulWidget> createState() => _CircularBottomNavigationState();
 }
 
-class _CircularBottomNavigation extends State<CircularBottomNavigation>
+class _CircularBottomNavigationState extends State<CircularBottomNavigation>
     with TickerProviderStateMixin {
   Curve _animationsCurve = Cubic(0.27, 1.21, .77, 1.09);
 
@@ -18,27 +37,20 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation>
   Animation<double> selectedPosAnimation;
   Animation<double> itemsAnimation;
 
-  int selectedPos = 0;
-  int previousSelectedPos = 0;
+  List<double> _itemsSelectedState;
 
-  double barHeight = 60;
-  double circleSize = 48;
-  double circleStrokeWidth = 4;
-  double iconsSize = 32;
-  Color selectedIconColor = Colors.white;
-  Color normalIconColor = Colors.grey;
-
-  List<TabItem> tabItems = List.of([
-    new TabItem(Icons.home, "Home", Colors.blue),
-    new TabItem(Icons.search, "Search", Colors.orange),
-    new TabItem(Icons.layers, "Reports", Colors.red),
-    new TabItem(Icons.notifications, "Notifications", Colors.cyan)
-  ]);
-  List<double> _itemsSelectedState = List.of([1.0, 0.0, 0.0, 0.0]);
+  int selectedPos;
+  int previousSelectedPos;
 
   @override
   void initState() {
     super.initState();
+    previousSelectedPos = selectedPos = widget.selectedPos;
+
+    _itemsSelectedState = List.generate(widget.tabItems.length, (index) {
+      return selectedPos == index ? 1.0 : 0.0;
+    });
+
     itemsController = new AnimationController(vsync: this, duration: Duration(milliseconds: 300));
     itemsController.addListener(() {
       setState(() {
@@ -54,7 +66,8 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation>
       });
     });
 
-    selectedPosAnimation = makeSelectedPosAnimation(selectedPos.toDouble(), selectedPos.toDouble());
+    selectedPosAnimation =
+        makeSelectedPosAnimation(selectedPos.toDouble(), selectedPos.toDouble());
 
     itemsAnimation = Tween(begin: 0.0, end: 1.0)
         .animate(CurvedAnimation(parent: itemsController, curve: _animationsCurve));
@@ -71,17 +84,17 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation>
 
   @override
   Widget build(BuildContext context) {
-    double full_width = MediaQuery.of(context).size.width;
-    double full_height = this.barHeight + (this.circleSize / 2) + this.circleStrokeWidth;
-    double section_width = full_width / this.tabItems.length;
+    double fullWidth = MediaQuery.of(context).size.width;
+    double fullHeight = widget.barHeight + (widget.circleSize / 2) + widget.circleStrokeWidth;
+    double sectionsWidth = fullWidth / widget.tabItems.length;
 
     //Create the boxes Rect
     List<Rect> boxes = List();
-    tabItems.asMap().forEach((i, tabItem) {
-      double left = i * section_width;
-      double top = full_height - this.barHeight;
-      double right = left + section_width;
-      double bottom = full_height;
+    widget.tabItems.asMap().forEach((i, tabItem) {
+      double left = i * sectionsWidth;
+      double top = fullHeight - widget.barHeight;
+      double right = left + sectionsWidth;
+      double bottom = fullHeight;
       boxes.add(Rect.fromLTRB(left, top, right, bottom));
     });
 
@@ -89,52 +102,61 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation>
 
     // This is the full view transparent background (have free space for circle)
     children.add(Container(
-      width: full_width,
-      height: full_height,
+      width: fullWidth,
+      height: fullHeight,
     ));
 
     // This is the bar background (bottom section of our view)
     children.add(Positioned(
       child: Container(
-        width: full_width,
-        height: barHeight,
+        width: fullWidth,
+        height: widget.barHeight,
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             color: Colors.white,
             boxShadow: [new BoxShadow(color: Colors.grey, blurRadius: 2.0)]),
       ),
-      top: full_height - barHeight,
+      top: fullHeight - widget.barHeight,
       left: 0,
     ));
 
     // This is the circle handle
     children.add(new Positioned(
       child: Container(
-        width: circleSize,
-        height: circleSize,
+        width: widget.circleSize,
+        height: widget.circleSize,
         decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: tabItems[selectedPos].color,
-            border: Border.all(width: circleStrokeWidth, color: Colors.white)),
+            color: widget.tabItems[selectedPos].color,
+            border: Border.all(width: widget.circleStrokeWidth, color: Colors.white)),
       ),
-      left: (selectedPosAnimation.value * section_width) + (section_width / 2) - (circleSize / 2),
+      left: (selectedPosAnimation.value * sectionsWidth) +
+          (sectionsWidth / 2) -
+          (widget.circleSize / 2),
       top: 0,
     ));
 
     //Here are the Icons and texts of items
     boxes.asMap().forEach((int pos, Rect r) {
       // Icon
-      Color iconColor = pos == selectedPos ? selectedIconColor : normalIconColor;
+      Color iconColor =
+          pos == selectedPos ? widget.selectedIconColor : widget.normalIconColor;
       children.add(
         Positioned(
-          child: Icon(tabItems[pos].icon, size: iconsSize, color: iconColor,),
-          left: r.center.dx - (iconsSize / 2),
-          top: r.center.dy - (iconsSize / 2) - (_itemsSelectedState[pos] * ((barHeight / 2) + circleStrokeWidth)),
+          child: Icon(
+            widget.tabItems[pos].icon,
+            size: widget.iconsSize,
+            color: iconColor,
+          ),
+          left: r.center.dx - (widget.iconsSize / 2),
+          top: r.center.dy -
+              (widget.iconsSize / 2) -
+              (_itemsSelectedState[pos] * ((widget.barHeight / 2) + widget.circleStrokeWidth)),
         ),
       );
 
       // Text
-      double textHeight = full_height - circleSize;
+      double textHeight = fullHeight - widget.circleSize;
       double opacity = _itemsSelectedState[pos];
       if (opacity < 0.0) {
         opacity = 0.0;
@@ -149,16 +171,16 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation>
               child: Opacity(
             opacity: opacity,
             child: Text(
-              tabItems[pos].title,
+              widget.tabItems[pos].title,
               textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.bold, color: tabItems[pos].color),
+              style: TextStyle(fontWeight: FontWeight.bold, color: widget.tabItems[pos].color),
             ),
           )),
         ),
         left: r.left,
         top: r.top +
-            (circleSize / 2) -
-            (circleStrokeWidth * 2) +
+            (widget.circleSize / 2) -
+            (widget.circleStrokeWidth * 2) +
             ((1.0 - _itemsSelectedState[pos]) * textHeight),
       ));
 
@@ -171,8 +193,8 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation>
 
               itemsController.forward(from: 0.0);
 
-              selectedPosAnimation =
-                  makeSelectedPosAnimation(previousSelectedPos.toDouble(), selectedPos.toDouble());
+              selectedPosAnimation = makeSelectedPosAnimation(
+                  previousSelectedPos.toDouble(), selectedPos.toDouble());
               selectedPosAnimation.addListener(onSelectedPosAnimate);
             },
           ),
