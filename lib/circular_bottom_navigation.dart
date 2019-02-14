@@ -17,22 +17,31 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation> {
   @override
   Widget build(BuildContext context) {
     double full_width = MediaQuery.of(context).size.width;
-    double full_height = this.barHeight + (this.circleSize / 2) + this.circleStrokeWidth;
+    double full_height =
+        this.barHeight + (this.circleSize / 2) + this.circleStrokeWidth;
 
     List<Rect> boxes = List();
     items.asMap().forEach((i, rect) {
       double left = i * (full_width / this.items.length);
       double top = full_height - this.barHeight;
-      double right = full_width / this.items.length;
+      double right = left + (full_width / this.items.length);
       double bottom = full_height;
       boxes.add(Rect.fromLTRB(left, top, right, bottom));
     });
 
     List<Widget> children = List();
     children.add(Container(
-      color: Colors.blueGrey,
       width: full_width,
       height: full_height,
+    ));
+    children.add(Positioned(
+      child: Container(
+        color: Colors.pink,
+        width: full_width,
+        height: barHeight,
+      ),
+      top: full_height - barHeight,
+      left: 0,
     ));
     children.add(new Positioned(
       child: Container(
@@ -43,14 +52,13 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation> {
             color: Colors.green,
             border: Border.all(width: circleStrokeWidth, color: Colors.white)),
       ),
-      left: (boxes[selectedPos].width - circleSize) / 2,
+      left: boxes[selectedPos].center.dx - (circleSize / 2),
       top: 0,
     ));
     boxes.forEach((Rect r) {
       children.add(
         Positioned.fromRect(
           child: Container(
-            color: Colors.red,
             child: Center(
               child: Icon(Icons.home),
             ),
