@@ -21,7 +21,7 @@ class CircularBottomNavigation extends StatefulWidget {
   CircularBottomNavigation(this.tabItems,
       {this.selectedPos = 0,
         this.barHeight = 60,
-        this.circleSize = 48,
+        this.circleSize = 58,
         this.circleStrokeWidth = 4,
         this.iconsSize = 32,
         this.selectedIconColor = Colors.white,
@@ -148,12 +148,16 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
       // Icon
       Color iconColor =
       pos == selectedPos ? widget.selectedIconColor : widget.normalIconColor;
+      double scaleFactor = pos == selectedPos ? 1.2 : 1.0;
       children.add(
         Positioned(
-          child: Icon(
-            widget.tabItems[pos].icon,
-            size: widget.iconsSize,
-            color: iconColor,
+          child: Transform.scale(
+            scale: scaleFactor,
+            child: Icon(
+              widget.tabItems[pos].icon,
+              size: widget.iconsSize,
+              color: iconColor,
+            ),
           ),
           left: r.center.dx - (widget.iconsSize / 2),
           top: r.center.dy -
