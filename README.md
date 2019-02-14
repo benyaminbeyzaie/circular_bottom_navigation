@@ -4,7 +4,7 @@ This is implementation of an artwork in [Uplabs](https://www.uplabs.com/posts/bo
 
 <img src="./repo_files/images/demo.gif" width="300">
 
-Go through this instruction to use this package in your flutter app
+#### Go through this instruction to use this package in your flutter app
 
 ## 1 - Depend on it
 
