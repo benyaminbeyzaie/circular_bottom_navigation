@@ -26,29 +26,69 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int selectedPos = 0;
+
+  double bottomNavBarHeight = 60;
+
+  List<TabItem> tabItems = List.of([
+    new TabItem(Icons.home, "Home", Colors.blue),
+    new TabItem(Icons.search, "Search", Colors.orange),
+    new TabItem(Icons.layers, "Reports", Colors.red),
+    new TabItem(Icons.notifications, "Notifications", Colors.cyan),
+  ]);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+      body: Stack(
+        children: <Widget>[
+          Padding(child: bodyContainer(), padding: EdgeInsets.only(bottom: bottomNavBarHeight),),
+          Align(alignment: Alignment.bottomCenter, child: bottomNav())
+        ],
       ),
-      bottomNavigationBar: CircularBottomNavigation(List.of([
-        new TabItem(Icons.home, "Home", Colors.blue),
-        new TabItem(Icons.search, "Search", Colors.orange),
-        new TabItem(Icons.layers, "Reports", Colors.red),
-        new TabItem(Icons.notifications, "Notifications", Colors.cyan),
-      ])),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-          ],
+    );
+  }
+
+  Widget bodyContainer() {
+    Color selectedColor = tabItems[selectedPos].color;
+    String slogan;
+    switch (selectedPos) {
+      case 0:
+        slogan = "Home is better than office";
+        break;
+      case 1:
+        slogan = "Search to find yourself";
+        break;
+      case 2:
+        slogan = "Skip all Reports";
+        break;
+      case 3:
+        slogan = "Notifications will disturbing you";
+        break;
+    }
+
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      color: selectedColor,
+      child: Center(
+        child: Text(
+          slogan,
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
         ),
       ),
+    );
+  }
+
+  Widget bottomNav() {
+    return CircularBottomNavigation(
+      tabItems,
+      barHeight: bottomNavBarHeight,
+      selectedCallback: (int selectedPos) {
+        setState(() {
+          this.selectedPos = selectedPos;
+        });
+      },
     );
   }
 }
