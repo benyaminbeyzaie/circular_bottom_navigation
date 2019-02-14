@@ -83,11 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget bottomNav() {
     return CircularBottomNavigation(
       tabItems,
-      barHeight: bottomNavBarHeight,
       selectedCallback: (int selectedPos) {
-        setState(() {
-          this.selectedPos = selectedPos;
-        });
+        print("clicked on $selectedPos");
       },
     );
   }
