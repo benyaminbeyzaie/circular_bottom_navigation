@@ -7,8 +7,17 @@ class CircularBottomNavigation extends StatefulWidget {
   State<StatefulWidget> createState() => _CircularBottomNavigation();
 }
 
-class _CircularBottomNavigation extends State<CircularBottomNavigation> {
+class _CircularBottomNavigation extends State<CircularBottomNavigation>
+    with TickerProviderStateMixin {
+  Curve _animationsCurve = Cubic(0.27, 1.21, .77, 1.09);
+
+  AnimationController itemsController;
+  Animation<double> selectedPosAnimation;
+  Animation<double> itemsAnimation;
+
   int selectedPos = 0;
+  int previousSelectedPos = 0;
+
   double barHeight = 60;
   double circleSize = 48;
   double circleStrokeWidth = 2;
@@ -18,17 +27,54 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation> {
   List<double> itemsSelectedState = List.of([1.0, 0.0, 0.0, 0.0]);
 
   @override
+  void initState() {
+    super.initState();
+    itemsController = new AnimationController(
+        vsync: this, duration: Duration(milliseconds: 300));
+    itemsController.addListener(() {
+      setState(() {
+        itemsSelectedState.asMap().forEach((i, value) {
+          if (i == previousSelectedPos) {
+            itemsSelectedState[previousSelectedPos] =
+                1.0 - itemsAnimation.value;
+          } else if (i == selectedPos) {
+            itemsSelectedState[selectedPos] = itemsAnimation.value;
+          } else {
+            itemsSelectedState[i] = 0.0;
+          }
+        });
+      });
+    });
+
+    selectedPosAnimation = makeSelectedPosAnimation(
+        selectedPos.toDouble(), selectedPos.toDouble());
+
+    itemsAnimation = Tween(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(parent: itemsController, curve: _animationsCurve));
+  }
+
+  Animation<double> makeSelectedPosAnimation(double begin, double end) {
+    return Tween(begin: begin, end: end)
+        .animate(CurvedAnimation(parent: itemsController, curve: _animationsCurve));
+  }
+
+  void onSelectedPosAnimate() {
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
     double full_width = MediaQuery.of(context).size.width;
     double full_height =
         this.barHeight + (this.circleSize / 2) + this.circleStrokeWidth;
+    double section_width = full_width / this.items.length;
 
     //Create the boxes Rect
     List<Rect> boxes = List();
     items.asMap().forEach((i, rect) {
-      double left = i * (full_width / this.items.length);
+      double left = i * section_width;
       double top = full_height - this.barHeight;
-      double right = left + (full_width / this.items.length);
+      double right = left + section_width;
       double bottom = full_height;
       boxes.add(Rect.fromLTRB(left, top, right, bottom));
     });
@@ -62,7 +108,9 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation> {
             color: Colors.green,
             border: Border.all(width: circleStrokeWidth, color: Colors.white)),
       ),
-      left: boxes[selectedPos].center.dx - (circleSize / 2),
+      left: (selectedPosAnimation.value * section_width) +
+          (section_width / 2) -
+          (circleSize / 2),
       top: 0,
     ));
 
@@ -84,13 +132,19 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation> {
 
       // Text
       double textHeight = full_height - circleSize;
+      double opacity = itemsSelectedState[pos];
+      if (opacity < 0.0) {
+        opacity = 0.0;
+      } else if (opacity > 1.0) {
+        opacity = 1.0;
+      }
       children.add(Positioned(
         child: Container(
           width: r.width,
           height: textHeight,
           child: Center(
               child: Opacity(
-            opacity: itemsSelectedState[pos],
+            opacity: opacity,
             child: Text(
               "Item $pos",
               textAlign: TextAlign.center,
@@ -110,17 +164,14 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation> {
         children.add(Positioned.fromRect(
           child: GestureDetector(
             onTap: () {
-              print("Tapped on $pos");
-              setState(() {
-                selectedPos = pos;
-                itemsSelectedState.asMap().forEach((i, value) {
-                  if (i == selectedPos) {
-                    itemsSelectedState[i] = 1.0;
-                  } else {
-                    itemsSelectedState[i] = 0.0;
-                  }
-                });
-              });
+              previousSelectedPos = selectedPos;
+              selectedPos = pos;
+
+              itemsController.forward(from: 0.0);
+
+              selectedPosAnimation = makeSelectedPosAnimation(
+                  previousSelectedPos.toDouble(), selectedPos.toDouble());
+              selectedPosAnimation.addListener(onSelectedPosAnimate);
             },
           ),
           rect: r,
@@ -131,5 +182,11 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation> {
     return Stack(
       children: children,
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    itemsController.dispose();
   }
 }
