@@ -54,16 +54,16 @@ class _MyHomePageState extends State<MyHomePage> {
     String slogan;
     switch (selectedPos) {
       case 0:
-        slogan = "Home is better than office";
+        slogan = "Familly, Happiness, Food";
         break;
       case 1:
-        slogan = "Search to find yourself";
+        slogan = "Find, Check, Use";
         break;
       case 2:
-        slogan = "Skip all Reports";
+        slogan = "Receive, Review, Rip";
         break;
       case 3:
-        slogan = "Notifications will disturbing you";
+        slogan = "Noise, Panic, Ignore";
         break;
     }
 
