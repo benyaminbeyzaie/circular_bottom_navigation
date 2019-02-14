@@ -10,10 +10,12 @@ class CircularBottomNavigation extends StatefulWidget {
 class _CircularBottomNavigation extends State<CircularBottomNavigation> {
   int selectedPos = 0;
   double barHeight = 60;
-  double circleSize = 40;
+  double circleSize = 48;
   double circleStrokeWidth = 2;
-  List<String> items = List.of(["Home", "Search", "Reports", "Notification"]);
+  double iconsSize = 32;
 
+  List<String> items = List.of(["Home", "Search", "Reports", "Notification"]);
+  List<double> itemsSelectedState = List.of([1.0, 0.0, 0.0, 0.0]);
   @override
   Widget build(BuildContext context) {
     double full_width = MediaQuery.of(context).size.width;
@@ -55,15 +57,15 @@ class _CircularBottomNavigation extends State<CircularBottomNavigation> {
       left: boxes[selectedPos].center.dx - (circleSize / 2),
       top: 0,
     ));
-    boxes.forEach((Rect r) {
+    boxes.asMap().forEach((int pos, Rect r) {
       children.add(
-        Positioned.fromRect(
-          child: Container(
-            child: Center(
-              child: Icon(Icons.home),
-            ),
+        Positioned(
+          child: Icon(
+            Icons.home,
+            size: iconsSize,
           ),
-          rect: r,
+          left: r.center.dx - (iconsSize / 2),
+          top: r.center.dy - (iconsSize / 2) - (itemsSelectedState[pos] *(barHeight / 2)),
         ),
       );
     });
