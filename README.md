@@ -2,7 +2,11 @@
 
 This is implementation of an artwork in [Uplabs](https://www.uplabs.com/posts/bottom-tab)
 
-<img src="https://github.com/imaNNeoFighT/circular_bottom_navigation/blob/master/repo_files/images/demo.gif" width="300">
+<p>
+    <img src="https://assets.materialup.com/uploads/25695b47-0c7f-479f-81d3-0e9d6edd06cf/preview.gif" width="300">
+    <img src="https://github.com/imaNNeoFighT/circular_bottom_navigation/blob/master/repo_files/images/demo.gif" width="300">
+</p>
+
 
 #### Go through this instruction to use this package in your flutter app
 
