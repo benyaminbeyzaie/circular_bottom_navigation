@@ -84,7 +84,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return CircularBottomNavigation(
       tabItems,
       selectedCallback: (int selectedPos) {
-        print("clicked on $selectedPos");
+        setState(() {
+          this.selectedPos = selectedPos;
+        });
       },
     );
   }
