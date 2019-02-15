@@ -2,10 +2,9 @@
 
 This is implementation of an artwork in [Uplabs](https://www.uplabs.com/posts/bottom-tab)
 
-<p>
-    <img src="https://github.com/imaNNeoFighT/circular_bottom_navigation/blob/master/repo_files/images/uplabs_demo.gif" width="300">
-    <img src="https://github.com/imaNNeoFighT/circular_bottom_navigation/blob/master/repo_files/images/demo.gif" width="300">
-</p>
+<img src="https://github.com/imaNNeoFighT/circular_bottom_navigation/blob/master/repo_files/images/uplabs_demo.gif" width="300">
+
+<img src="https://github.com/imaNNeoFighT/circular_bottom_navigation/blob/master/repo_files/images/demo.gif" width="300">
 
 
 #### Go through this instruction to use this package in your flutter app
