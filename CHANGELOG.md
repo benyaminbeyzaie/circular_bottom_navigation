@@ -1,3 +1,7 @@
+## [0.0.3]
+* ready to release
+
+
 ## [0.0.2] - Beta 1.
 * Increased Circle size
 * Added scale factor on tab icons
