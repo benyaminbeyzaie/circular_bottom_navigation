@@ -1,6 +1,6 @@
 # Circular Bottom Navigation (or maybe a tab bar).
 [![pub package](https://img.shields.io/pub/v/circular_bottom_navigation.svg)](https://pub.dartlang.org/packages/circular_bottom_navigation)
-
+[![APK](https://img.shields.io/badge/APK-Demo-brightgreen.svg)](https://github.com/imaNNeoFighT/circular_bottom_navigation/raw/master/repo_files/CircularBottomNavExample-0.0.3.apk)
 <img src="https://github.com/imaNNeoFighT/circular_bottom_navigation/blob/master/repo_files/images/uplabs_demo.gif" width="300">
 
 This is implementation of an artwork in [Uplabs](https://www.uplabs.com/posts/bottom-tab)
