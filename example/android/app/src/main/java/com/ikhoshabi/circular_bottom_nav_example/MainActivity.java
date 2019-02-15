@@ -1,4 +1,4 @@
-package com.example.example;
+package com.ikhoshabi.circular_bottom_nav_example;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

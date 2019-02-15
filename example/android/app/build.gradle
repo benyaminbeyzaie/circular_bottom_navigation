@@ -32,8 +32,7 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.example"
+        applicationId "com.ikhoshabi.circular_bottom_nav_example"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode flutterVersionCode.toInteger()
