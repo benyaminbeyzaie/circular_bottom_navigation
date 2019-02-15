@@ -1,4 +1,5 @@
 # Circular Bottom Navigation (or maybe a tab bar).
+[![pub package](https://img.shields.io/pub/v/flutter_webview_plugin.svg)](https://pub.dartlang.org/packages/circular_bottom_navigation)
 
 <img src="https://github.com/imaNNeoFighT/circular_bottom_navigation/blob/master/repo_files/images/uplabs_demo.gif" width="300">
 
