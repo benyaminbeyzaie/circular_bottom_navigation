@@ -1,3 +1,7 @@
+## [0.1.0]
+* Added CircularBottomNavigationController
+
+
 ## [0.0.5]
 * ready to release
 

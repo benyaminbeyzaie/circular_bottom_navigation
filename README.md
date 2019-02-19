@@ -17,7 +17,7 @@ This is implementation of an artwork in [Uplabs](https://www.uplabs.com/posts/bo
 
 ```kotlin
 dependencies:
-  circular_bottom_navigation: ^0.0.5
+  circular_bottom_navigation: ^0.1.0
 ```
 
 ## 2 - Install it
@@ -59,14 +59,14 @@ CircularBottomNavigation(
 
 With this controller you can read the current tab position, and set a new tab position on widget (without needing to rebuild the tree) with the widget built in animation.
 
-just create a new instance of controller
+Just create a new instance of controller
 
 ```kotlin
 CircularBottomNavigationController _navigationController = 
 new CircularBottomNavigationController(selectedPos);
 ```
 
-then pass it in your widget
+Then pass it in your widget
 
 ```kotlin
 CircularBottomNavigation(
@@ -75,7 +75,7 @@ CircularBottomNavigation(
     );
 ```
 
-now you can write (set new position with animation) and read value from it everywhere you want
+Now you can write (set new position with animation) and read value from it everywhere you want
 
 ```kotlin
 // Write a new value 
