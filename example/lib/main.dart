@@ -8,11 +8,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Circular Bottom Navigation Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'circular_bottom_navigation'),
     );
   }
 }
@@ -36,6 +36,14 @@ class _MyHomePageState extends State<MyHomePage> {
     new TabItem(Icons.layers, "Reports", Colors.red),
     new TabItem(Icons.notifications, "Notifications", Colors.cyan),
   ]);
+
+  CircularBottomNavigationController _navigationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _navigationController = new CircularBottomNavigationController(selectedPos);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,27 +75,45 @@ class _MyHomePageState extends State<MyHomePage> {
         break;
     }
 
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      color: selectedColor,
-      child: Center(
-        child: Text(
-          slogan,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+    return GestureDetector(
+      child: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: selectedColor,
+        child: Center(
+          child: Text(
+            slogan,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+          ),
         ),
       ),
+      onTap: () {
+        if (_navigationController.value == tabItems.length - 1) {
+          _navigationController.value = 0;
+        } else {
+          _navigationController.value++;
+        }
+      },
     );
   }
 
   Widget bottomNav() {
     return CircularBottomNavigation(
       tabItems,
+      controller: _navigationController,
+      barHeight: bottomNavBarHeight,
       selectedCallback: (int selectedPos) {
         setState(() {
           this.selectedPos = selectedPos;
+          print(_navigationController.value);
         });
       },
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _navigationController.dispose();
   }
 }
