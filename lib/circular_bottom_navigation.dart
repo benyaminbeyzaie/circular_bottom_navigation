@@ -17,6 +17,7 @@ class CircularBottomNavigation extends StatefulWidget {
   final Color selectedIconColor;
   final Color normalIconColor;
   final CircularBottomNavSelectedCallback selectedCallback;
+  final CircularBottomNavigationController controller;
 
   CircularBottomNavigation(this.tabItems,
       {this.selectedPos = 0,
@@ -26,7 +27,8 @@ class CircularBottomNavigation extends StatefulWidget {
         this.iconsSize = 32,
         this.selectedIconColor = Colors.white,
         this.normalIconColor = Colors.grey,
-        this.selectedCallback})
+        this.selectedCallback,
+        this.controller})
       : assert(tabItems != null && tabItems.length != 0, "tabItems is required");
 
   @override
@@ -75,6 +77,10 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
 
     itemsAnimation = Tween(begin: 0.0, end: 1.0)
         .animate(CurvedAnimation(parent: itemsController, curve: _animationsCurve));
+
+    if (widget.controller != null) {
+      widget.controller.addListener(_newSelectedPosNotify);
+    }
   }
 
   Animation<double> makeSelectedPosAnimation(double begin, double end) {
@@ -84,6 +90,10 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
 
   void onSelectedPosAnimate() {
     setState(() {});
+  }
+
+  void _newSelectedPosNotify() {
+    _setSelectedPos(widget.controller.value);
   }
 
   @override
@@ -199,18 +209,7 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
         children.add(Positioned.fromRect(
           child: GestureDetector(
             onTap: () {
-              previousSelectedPos = selectedPos;
-              selectedPos = pos;
-
-              itemsController.forward(from: 0.0);
-
-              selectedPosAnimation = makeSelectedPosAnimation(
-                  previousSelectedPos.toDouble(), selectedPos.toDouble());
-              selectedPosAnimation.addListener(onSelectedPosAnimate);
-
-              if (widget.selectedCallback != null) {
-                widget.selectedCallback(selectedPos);
-              }
+              _setSelectedPos(pos);
             },
           ),
           rect: r,
@@ -223,9 +222,32 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
     );
   }
 
+  void _setSelectedPos(int pos) {
+    previousSelectedPos = selectedPos;
+    selectedPos = pos;
+
+    itemsController.forward(from: 0.0);
+
+    selectedPosAnimation = makeSelectedPosAnimation(
+        previousSelectedPos.toDouble(), selectedPos.toDouble());
+    selectedPosAnimation.addListener(onSelectedPosAnimate);
+
+    if (widget.selectedCallback != null) {
+      widget.selectedCallback(selectedPos);
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
     itemsController.dispose();
+    if (widget.controller != null) {
+      widget.controller.removeListener(_newSelectedPosNotify);
+    }
   }
+
+}
+
+class CircularBottomNavigationController extends ValueNotifier<int> {
+  CircularBottomNavigationController(int value) : super(value);
 }
