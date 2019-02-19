@@ -53,7 +53,15 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
   @override
   void initState() {
     super.initState();
-    previousSelectedPos = selectedPos = widget.selectedPos;
+    if (widget.controller != null) {
+      _controller = widget.controller;
+      previousSelectedPos = selectedPos = _controller.value;
+    } else {
+      previousSelectedPos = selectedPos = widget.selectedPos;
+      _controller = CircularBottomNavigationController(selectedPos);
+    }
+
+    _controller.addListener(_newSelectedPosNotify);
 
     _itemsSelectedState = List.generate(widget.tabItems.length, (index) {
       return selectedPos == index ? 1.0 : 0.0;
@@ -79,14 +87,6 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
 
     itemsAnimation = Tween(begin: 0.0, end: 1.0)
         .animate(CurvedAnimation(parent: itemsController, curve: _animationsCurve));
-
-    if (widget.controller != null) {
-      _controller = widget.controller;
-    } else {
-      _controller = CircularBottomNavigationController(selectedPos);
-    }
-
-    widget.controller.addListener(_newSelectedPosNotify);
   }
 
   Animation<double> makeSelectedPosAnimation(double begin, double end) {
