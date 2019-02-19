@@ -48,6 +48,8 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
   int selectedPos;
   int previousSelectedPos;
 
+  CircularBottomNavigationController _controller;
+
   @override
   void initState() {
     super.initState();
@@ -79,8 +81,12 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
         .animate(CurvedAnimation(parent: itemsController, curve: _animationsCurve));
 
     if (widget.controller != null) {
-      widget.controller.addListener(_newSelectedPosNotify);
+      _controller = widget.controller;
+    } else {
+      _controller = CircularBottomNavigationController(selectedPos);
     }
+
+    widget.controller.addListener(_newSelectedPosNotify);
   }
 
   Animation<double> makeSelectedPosAnimation(double begin, double end) {
@@ -209,7 +215,7 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
         children.add(Positioned.fromRect(
           child: GestureDetector(
             onTap: () {
-              _setSelectedPos(pos);
+              _controller.value = pos;
             },
           ),
           rect: r,
@@ -241,9 +247,7 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
   void dispose() {
     super.dispose();
     itemsController.dispose();
-    if (widget.controller != null) {
-      widget.controller.removeListener(_newSelectedPosNotify);
-    }
+    _controller.removeListener(_newSelectedPosNotify);
   }
 
 }
