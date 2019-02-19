@@ -54,3 +54,33 @@ CircularBottomNavigation(
       },
     )
 ```
+
+### how to use CircularBottomNavigationController
+
+With this controller you can read the current tab position, and set a new tab position on widget (without needing to rebuild the tree) with the widget built in animation.
+
+just create a new instance of controller
+
+```kotlin
+CircularBottomNavigationController _navigationController = 
+new CircularBottomNavigationController(selectedPos);
+```
+
+then pass it in your widget
+
+```kotlin
+CircularBottomNavigation(
+      tabItems,
+      controller: _navigationController,
+    );
+```
+
+now you can write (set new position with animation) and read value from it everywhere you want
+
+```kotlin
+// Write a new value 
+_navigationController.value = 0;
+
+// Read the latest value
+int latest = _navigationController.value;
+```
