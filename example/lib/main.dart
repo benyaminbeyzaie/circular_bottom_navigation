@@ -102,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
       tabItems,
       controller: _navigationController,
       barHeight: bottomNavBarHeight,
+      barBackgroundColor: Colors.white,
       selectedCallback: (int selectedPos) {
         setState(() {
           this.selectedPos = selectedPos;
