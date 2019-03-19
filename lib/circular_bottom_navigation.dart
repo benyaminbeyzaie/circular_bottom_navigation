@@ -17,6 +17,7 @@ class CircularBottomNavigation extends StatefulWidget {
   final double iconsSize;
   final Color selectedIconColor;
   final Color normalIconColor;
+  final Duration animationDuration;
   final CircularBottomNavSelectedCallback selectedCallback;
   final CircularBottomNavigationController controller;
 
@@ -29,6 +30,7 @@ class CircularBottomNavigation extends StatefulWidget {
         this.iconsSize = 32,
         this.selectedIconColor = Colors.white,
         this.normalIconColor = Colors.grey,
+        this.animationDuration = const Duration(milliseconds: 300),
         this.selectedCallback,
         this.controller})
       : assert(tabItems != null && tabItems.length != 0, "tabItems is required");
@@ -69,7 +71,7 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
       return selectedPos == index ? 1.0 : 0.0;
     });
 
-    itemsController = new AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    itemsController = new AnimationController(vsync: this, duration: widget.animationDuration);
     itemsController.addListener(() {
       setState(() {
         _itemsSelectedState.asMap().forEach((i, value) {

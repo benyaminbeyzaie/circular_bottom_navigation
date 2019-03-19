@@ -103,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
       controller: _navigationController,
       barHeight: bottomNavBarHeight,
       barBackgroundColor: Colors.white,
+      animationDuration: Duration(milliseconds: 300),
       selectedCallback: (int selectedPos) {
         setState(() {
           this.selectedPos = selectedPos;
