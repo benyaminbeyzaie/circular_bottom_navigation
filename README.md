@@ -17,7 +17,7 @@ This is implementation of an artwork in [Uplabs](https://www.uplabs.com/posts/bo
 
 ```kotlin
 dependencies:
-  circular_bottom_navigation: ^0.1.0
+  circular_bottom_navigation: ^0.9.0
 ```
 
 ## 2 - Install it
