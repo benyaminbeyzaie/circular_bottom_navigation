@@ -34,7 +34,13 @@ import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:circular_bottom_navigation/tab_item.dart';
 ```
 
-## 3 - Use it like a charm
+## 4 - CheatSheet
+### see the properties
+
+<img src="https://github.com/imaNNeoFighT/circular_bottom_navigation/raw/master/repo_files/images/cheatsheet.jpg" width="700">
+
+
+## 5 - Use it like a charm
 ### Make your TabItems
 ```kotlin
 List<TabItem> tabItems = List.of([
