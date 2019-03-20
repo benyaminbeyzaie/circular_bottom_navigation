@@ -1,3 +1,10 @@
+## [1.0.0]
+* added CheatSheet
+
+## [0.9.0]
+* added animationDuration property
+* added barBackgroundColor Property
+
 ## [0.1.0]
 * Added CircularBottomNavigationController
 

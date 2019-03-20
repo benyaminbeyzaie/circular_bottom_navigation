@@ -35,7 +35,6 @@ import 'package:circular_bottom_navigation/tab_item.dart';
 ```
 
 ## 4 - CheatSheet
-### see the properties
 
 <img src="https://github.com/imaNNeoFighT/circular_bottom_navigation/raw/master/repo_files/images/cheatsheet.jpg" width="700">
 
