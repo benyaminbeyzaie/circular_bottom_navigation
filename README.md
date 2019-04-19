@@ -13,6 +13,11 @@ This is implementation of an artwork in [Uplabs](https://www.uplabs.com/posts/bo
 
 <img src="https://github.com/imaNNeoFighT/circular_bottom_navigation/raw/master/repo_files/images/demo.gif" width="300">
 
+# Donate
+
+Support us by becoming a patron on Patreon
+
+[![Patreon](https://c5.patreon.com/external/logo/become_a_patron_button.png)](https://www.patreon.com/imanneo)
 
 # Let's get started
 
