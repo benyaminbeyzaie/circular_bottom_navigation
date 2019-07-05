@@ -115,7 +115,7 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
   Widget build(BuildContext context) {
     double fullWidth = MediaQuery.of(context).size.width;
     double fullHeight =
-        widget.barHeight + (widget.circleSize / 2) + widget.circleStrokeWidth;
+        widget.barHeight + (widget.circleSize / 2) + widget.circleStrokeWidth + 5;
     double sectionsWidth = fullWidth / widget.tabItems.length;
 
     //Create the boxes Rect
@@ -144,7 +144,7 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             color: widget.barBackgroundColor,
-            boxShadow: [new BoxShadow(color: Colors.grey, blurRadius: 2.0)]),
+            boxShadow: [new BoxShadow(color: Colors.black.withAlpha(40), blurRadius: 2.0, offset: Offset(0, -2))]),
       ),
       top: fullHeight - widget.barHeight,
       left: 0,
@@ -156,16 +156,18 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
         width: widget.circleSize,
         height: widget.circleSize,
         decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: widget.tabItems[selectedPos].color,
-            border: Border.all(
-                width: widget.circleStrokeWidth,
-                color: widget.barBackgroundColor)),
+          shape: BoxShape.circle,
+          color: widget.tabItems[selectedPos].color,
+          border: Border.all(
+              width: widget.circleStrokeWidth,
+              color: widget.barBackgroundColor),
+          boxShadow: [new BoxShadow(color: Colors.black.withAlpha(40), offset: Offset(0, -2),  blurRadius: 2.0)],
+        ),
       ),
       left: (selectedPosAnimation.value * sectionsWidth) +
           (sectionsWidth / 2) -
           (widget.circleSize / 2),
-      top: 0,
+      top: 5,
     ));
 
     //Here are the Icons and texts of items
