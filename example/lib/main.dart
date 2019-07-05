@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
   double bottomNavBarHeight = 60;
 
   List<TabItem> tabItems = List.of([
-    new TabItem(Icons.home, "Home", Colors.blue),
+    new TabItem(Icons.home, "Home", Colors.white),
     new TabItem(Icons.search, "Search", Colors.orange),
     new TabItem(Icons.layers, "Reports", Colors.red),
     new TabItem(Icons.notifications, "Notifications", Colors.cyan),
@@ -48,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('hi'),backgroundColor: Colors.white,),
       body: Stack(
         children: <Widget>[
           Padding(child: bodyContainer(), padding: EdgeInsets.only(bottom: bottomNavBarHeight),),
@@ -79,7 +80,6 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Container(
         width: double.infinity,
         height: double.infinity,
-        color: selectedColor,
         child: Center(
           child: Text(
             slogan,

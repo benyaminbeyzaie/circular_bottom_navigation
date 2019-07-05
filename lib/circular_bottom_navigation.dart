@@ -144,7 +144,7 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             color: widget.barBackgroundColor,
-            boxShadow: [new BoxShadow(color: Colors.black.withAlpha(40), blurRadius: 2.0, offset: Offset(0, -2))]),
+            boxShadow: [new BoxShadow(color: Colors.black.withAlpha(80), blurRadius: 2.0, offset: Offset(0, 0))]),
       ),
       top: fullHeight - widget.barHeight,
       left: 0,
@@ -161,7 +161,7 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
           border: Border.all(
               width: widget.circleStrokeWidth,
               color: widget.barBackgroundColor),
-          boxShadow: [new BoxShadow(color: Colors.black.withAlpha(40), offset: Offset(0, -2),  blurRadius: 2.0)],
+          boxShadow: [new BoxShadow(color: Colors.black.withAlpha(80), blurRadius: 1.0, offset: Offset(0, -2))],
         ),
       ),
       left: (selectedPosAnimation.value * sectionsWidth) +
