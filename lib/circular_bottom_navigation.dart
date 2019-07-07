@@ -17,6 +17,7 @@ class CircularBottomNavigation extends StatefulWidget {
   final double iconsSize;
   final Color selectedIconColor;
   final Color normalIconColor;
+  final TextStyle labelStyle;
   final Duration animationDuration;
   final CircularBottomNavSelectedCallback selectedCallback;
   final CircularBottomNavigationController controller;
@@ -30,6 +31,7 @@ class CircularBottomNavigation extends StatefulWidget {
         this.iconsSize = 32,
         this.selectedIconColor = Colors.white,
         this.normalIconColor = Colors.grey,
+        this.labelStyle = const TextStyle(fontWeight: FontWeight.bold),
         this.animationDuration = const Duration(milliseconds: 300),
         this.selectedCallback,
         this.controller})
@@ -204,7 +206,7 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
                 child: Text(
                   widget.tabItems[pos].title,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, color: widget.tabItems[pos].color),
+                  style: widget.labelStyle.copyWith(color: widget.tabItems[pos].color),
                 ),
               )),
         ),
