@@ -154,7 +154,7 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
         height: widget.circleSize,
         decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: widget.tabItems[selectedPos].color,
+            color: widget.tabItems[selectedPos].circleColor,
             border: Border.all(width: widget.circleStrokeWidth, color: widget.barBackgroundColor)),
       ),
       left: (selectedPosAnimation.value * sectionsWidth) +
@@ -204,7 +204,7 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
                 child: Text(
                   widget.tabItems[pos].title,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, color: widget.tabItems[pos].color),
+                  style: widget.tabItems[pos].labelStyle,
                 ),
               )),
         ),
