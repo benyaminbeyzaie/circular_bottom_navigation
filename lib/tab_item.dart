@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 class TabItem {
   IconData icon;
   String title;
-  Color color;
+  Color circleColor;
+  TextStyle labelStyle;
 
-  TabItem(this.icon, this.title, this.color);
+  TabItem(this.icon, this.title, this.circleColor, {this.labelStyle = const TextStyle(fontWeight: FontWeight.bold)});
 }
