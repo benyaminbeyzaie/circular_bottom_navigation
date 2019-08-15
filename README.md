@@ -53,8 +53,8 @@ import 'package:circular_bottom_navigation/tab_item.dart';
 ### Make your TabItems
 ```kotlin
 List<TabItem> tabItems = List.of([
-    new TabItem(Icons.home, "Home", Colors.blue),
-    new TabItem(Icons.search, "Search", Colors.orange),
+    new TabItem(Icons.home, "Home", Colors.blue, labelStyle: TextStyle(fontWeight: FontWeight.normal)),
+    new TabItem(Icons.search, "Search", Colors.orange, labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
     new TabItem(Icons.layers, "Reports", Colors.red),
     new TabItem(Icons.notifications, "Notifications", Colors.cyan),
   ]);
