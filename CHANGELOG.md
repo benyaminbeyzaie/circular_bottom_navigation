@@ -1,3 +1,8 @@
+## [1.0.1]
+* removed `color` although added `labelStyle`, `circleColor` properties in `TabItem`
+* removed circle handler shadow (due to apply material design rules)
+
+
 ## [1.0.0]
 * added CheatSheet
 
