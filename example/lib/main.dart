@@ -31,8 +31,8 @@ class _MyHomePageState extends State<MyHomePage> {
   double bottomNavBarHeight = 60;
 
   List<TabItem> tabItems = List.of([
-    new TabItem(Icons.home, "Home", Colors.blue),
-    new TabItem(Icons.search, "Search", Colors.orange),
+    new TabItem(Icons.home, "Home", Colors.blue, labelStyle: TextStyle(fontWeight: FontWeight.normal)),
+    new TabItem(Icons.search, "Search", Colors.orange, labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
     new TabItem(Icons.layers, "Reports", Colors.red),
     new TabItem(Icons.notifications, "Notifications", Colors.cyan),
   ]);
@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget bodyContainer() {
-    Color selectedColor = tabItems[selectedPos].color;
+    Color selectedColor = tabItems[selectedPos].circleColor;
     String slogan;
     switch (selectedPos) {
       case 0:
