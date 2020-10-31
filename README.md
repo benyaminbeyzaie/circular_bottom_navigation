@@ -32,7 +32,7 @@ dependencies:
 
 ## 2 - Install it
 
-### install packages from the command line:
+### Install packages from the command line:
 ```kotlin
 flutter packages get
 ```
@@ -70,7 +70,7 @@ CircularBottomNavigation(
     )
 ```
 
-### how to use CircularBottomNavigationController
+### How to use CircularBottomNavigationController
 
 With this controller you can read the current tab position, and set a new tab position on widget (without needing to rebuild the tree) with the widget built in animation.
 
