@@ -32,7 +32,7 @@ dependencies:
 
 ## 2 - Install it
 
-### install packages from the command line:
+### Install packages from the command line:
 ```kotlin
 flutter packages get
 ```
