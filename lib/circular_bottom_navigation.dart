@@ -46,6 +46,7 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
   Curve _animationsCurve = Cubic(0.27, 1.21, .77, 1.09);
 
   AnimationController itemsController;
+  AnimationController badgeController;
   Animation<double> selectedPosAnimation;
   Animation<double> itemsAnimation;
   Animation<double> badgeAnimation;
@@ -54,6 +55,7 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
 
   int selectedPos;
   int previousSelectedPos;
+  Map<int , dynamic> badgeItems = {};
 
   CircularBottomNavigationController _controller;
   CircularBottomBadgeController _badgeController;
@@ -82,6 +84,7 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
     });
 
     itemsController = new AnimationController(vsync: this, duration: widget.animationDuration);
+    badgeController = new AnimationController(vsync: this, duration: widget.animationDuration);
     itemsController.addListener(() {
       setState(() {
         _itemsSelectedState.asMap().forEach((i, value) {
@@ -95,6 +98,11 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
         });
       });
     });
+    badgeController.addListener(() {
+      setState(() {
+
+      });
+    });
 
     selectedPosAnimation =
         makeSelectedPosAnimation(selectedPos.toDouble(), selectedPos.toDouble());
@@ -102,8 +110,8 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
     itemsAnimation = Tween(begin: 0.0, end: 1.0)
         .animate(CurvedAnimation(parent: itemsController, curve: _animationsCurve));
 
-    badgeAnimation =
-        makeBadgeAnimation(selectedPos.toDouble(), selectedPos.toDouble());
+    badgeAnimation = Tween(begin: 0.0, end: 1.0)
+        .animate(CurvedAnimation(parent: badgeController, curve: _animationsCurve));
   }
 
   Animation<double> makeSelectedPosAnimation(double begin, double end) {
@@ -113,7 +121,7 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
 
   Animation<double> makeBadgeAnimation(double begin, double end) {
     return Tween(begin: begin, end: end)
-        .animate(CurvedAnimation(parent: itemsController, curve: _animationsCurve));
+        .animate(CurvedAnimation(parent: badgeController, curve: _animationsCurve));
   }
 
   void onSelectedPosAnimate() {
@@ -264,11 +272,11 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
                 scale: scaleFactor,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
-                    minHeight: badgeAnimation.value * 20,
-                    minWidth: badgeAnimation.value * 20,
+                    minHeight: badgeItems[pos] != widget.tabItems[pos].badgeNumber ? badgeAnimation.value * 20 : 20,
+                    minWidth: badgeItems[pos] != widget.tabItems[pos].badgeNumber ? badgeAnimation.value * 20 : 20,
                   ),
                   child: Container(
-                    height: badgeAnimation.value * 20,
+                    height: badgeItems[pos] != widget.tabItems[pos].badgeNumber ? badgeAnimation.value * 20 : 20,
                     decoration: BoxDecoration(
                         color: widget.tabItems[pos].badgeColor,
                         borderRadius: BorderRadius.all(Radius.circular(10))
@@ -314,16 +322,29 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
   void _setBadgeValue(List value) {
     int index = value[0];
     var newValue = value[1];
-    setState(() {
-      widget.tabItems[index].badgeNumber = newValue.toString();
-    });
-    badgeAnimation = makeBadgeAnimation(0.0, 1.0);
+    if(widget.tabItems[index].badgeNumber != newValue.toString()){
+      setState(() {
+        widget.tabItems[index].badgeNumber = newValue.toString();
+        Future.delayed(Duration(milliseconds: 100),(){
+          if(badgeItems[index] == null){
+            badgeItems[index] = newValue.toString();
+          } else {
+            if(badgeItems[index] != widget.tabItems[index].badgeNumber) {
+              badgeItems[index] = newValue.toString();
+            }
+          }
+        });
+      });
+      badgeController.forward(from: 0.0);
+      badgeAnimation = makeBadgeAnimation(0.0, 1.0);
+    }
   }
 
   @override
   void dispose() {
     super.dispose();
     itemsController.dispose();
+    badgeController.dispose();
     _controller.removeListener(_newSelectedPosNotify);
   }
 
