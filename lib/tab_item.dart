@@ -4,6 +4,8 @@ class TabItem {
   String title;
   Color circleColor;
   TextStyle labelStyle;
+  String badgeNumber;
+  Color badgeColor = Colors.red;
 
-  TabItem(this.icon, this.title, this.circleColor, {this.labelStyle = const TextStyle(fontWeight: FontWeight.bold)});
+  TabItem(this.icon, this.title, this.circleColor , {this.labelStyle = const TextStyle(fontWeight: FontWeight.bold) , this.badgeColor , this.badgeNumber});
 }
