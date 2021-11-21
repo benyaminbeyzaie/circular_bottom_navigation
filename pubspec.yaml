@@ -1,6 +1,6 @@
 name: circular_bottom_navigation
 description: Circular Bottom Navigation (or maybe a tab bar)
-version: 1.0.1
+version: 1.0.1-test
 homepage: https://github.com/imaNNeoFighT/circular_bottom_navigation
 
 environment:
