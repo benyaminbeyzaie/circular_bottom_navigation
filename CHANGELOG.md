@@ -1,3 +1,7 @@
+## [2.0.0]
+* migrate to support null-safety
+* update embedding android in Example
+
 ## [1.0.1]
 * removed `color` although added `labelStyle`, `circleColor` properties in `TabItem`
 * removed circle handler shadow (due to apply material design rules)
