@@ -31,10 +31,12 @@ class _MyHomePageState extends State<MyHomePage> {
   double bottomNavBarHeight = 60;
 
   List<TabItem> tabItems = List.of([
-    new TabItem(Icons.home, "Home", Colors.blue, labelStyle: TextStyle(fontWeight: FontWeight.normal)),
-    new TabItem(Icons.search, "Search", Colors.orange, labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
-    new TabItem(Icons.layers, "Reports", Colors.red),
-    new TabItem(Icons.notifications, "Notifications", Colors.cyan),
+    TabItem(Icons.home, "Home", Colors.blue,
+        labelStyle: TextStyle(fontWeight: FontWeight.normal)),
+    TabItem(Icons.search, "Search", Colors.orange,
+        labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+    TabItem(Icons.layers, "Reports", Colors.red),
+    TabItem(Icons.notifications, "Notifications", Colors.cyan),
   ]);
 
   CircularBottomNavigationController _navigationController;
@@ -42,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _navigationController = new CircularBottomNavigationController(selectedPos);
+    _navigationController = CircularBottomNavigationController(selectedPos);
   }
 
   @override
@@ -50,7 +52,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          Padding(child: bodyContainer(), padding: EdgeInsets.only(bottom: bottomNavBarHeight),),
+          Padding(
+            child: bodyContainer(),
+            padding: EdgeInsets.only(bottom: bottomNavBarHeight),
+          ),
           Align(alignment: Alignment.bottomCenter, child: bottomNav())
         ],
       ),
@@ -83,7 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Center(
           child: Text(
             slogan,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
       ),
@@ -103,6 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
       controller: _navigationController,
       barHeight: bottomNavBarHeight,
       barBackgroundColor: Colors.white,
+      backgroundBoxShadow: <BoxShadow>[],
       animationDuration: Duration(milliseconds: 300),
       selectedCallback: (int selectedPos) {
         setState(() {
