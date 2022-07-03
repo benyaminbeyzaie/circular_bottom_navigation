@@ -18,8 +18,11 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
+  MyHomePage({
+    Key? key,
+    this.title,
+  }) : super(key: key);
+  final String? title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -31,13 +34,14 @@ class _MyHomePageState extends State<MyHomePage> {
   double bottomNavBarHeight = 60;
 
   List<TabItem> tabItems = List.of([
-    new TabItem(Icons.home, "Home", Colors.blue, labelStyle: TextStyle(fontWeight: FontWeight.normal)),
-    new TabItem(Icons.search, "Search", Colors.orange, labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
-    new TabItem(Icons.layers, "Reports", Colors.red),
-    new TabItem(Icons.notifications, "Notifications", Colors.cyan),
+    TabItem(Icons.home, "Home", Colors.blue, labelStyle: TextStyle(fontWeight: FontWeight.normal)),
+    TabItem(Icons.search, "Search", Colors.orange,
+        labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+    TabItem(Icons.layers, "Reports", Colors.red),
+    TabItem(Icons.notifications, "Notifications", Colors.cyan),
   ]);
 
-  CircularBottomNavigationController _navigationController;
+  late CircularBottomNavigationController _navigationController;
 
   @override
   void initState() {
@@ -50,7 +54,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          Padding(child: bodyContainer(), padding: EdgeInsets.only(bottom: bottomNavBarHeight),),
+          Padding(
+            child: bodyContainer(),
+            padding: EdgeInsets.only(bottom: bottomNavBarHeight),
+          ),
           Align(alignment: Alignment.bottomCenter, child: bottomNav())
         ],
       ),
@@ -58,11 +65,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget bodyContainer() {
-    Color selectedColor = tabItems[selectedPos].circleColor;
-    String slogan;
+    Color? selectedColor = tabItems[selectedPos].circleColor;
+    String? slogan;
     switch (selectedPos) {
       case 0:
-        slogan = "Familly, Happiness, Food";
+        slogan = "Family, Happiness, Food";
         break;
       case 1:
         slogan = "Find, Check, Use";
@@ -82,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
         color: selectedColor,
         child: Center(
           child: Text(
-            slogan,
+            slogan??'',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
@@ -91,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
         if (_navigationController.value == tabItems.length - 1) {
           _navigationController.value = 0;
         } else {
-          _navigationController.value++;
+          _navigationController.value = _navigationController.value! + 1;
         }
       },
     );
@@ -101,12 +108,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return CircularBottomNavigation(
       tabItems,
       controller: _navigationController,
+      selectedPos: selectedPos,
       barHeight: bottomNavBarHeight,
       barBackgroundColor: Colors.white,
       animationDuration: Duration(milliseconds: 300),
-      selectedCallback: (int selectedPos) {
+      selectedCallback: (int? selectedPos) {
         setState(() {
-          this.selectedPos = selectedPos;
+          this.selectedPos = selectedPos??0;
           print(_navigationController.value);
         });
       },
