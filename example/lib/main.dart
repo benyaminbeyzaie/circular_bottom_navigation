@@ -34,7 +34,8 @@ class _MyHomePageState extends State<MyHomePage> {
   double bottomNavBarHeight = 60;
 
   List<TabItem> tabItems = List.of([
-    TabItem(Icons.home, "Home", Colors.blue, labelStyle: TextStyle(fontWeight: FontWeight.normal)),
+    TabItem(Icons.home, "Home", Colors.blue,
+        labelStyle: TextStyle(fontWeight: FontWeight.normal)),
     TabItem(Icons.search, "Search", Colors.orange,
         labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
     TabItem(Icons.layers, "Reports", Colors.red),
@@ -46,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _navigationController = new CircularBottomNavigationController(selectedPos);
+    _navigationController = CircularBottomNavigationController(selectedPos);
   }
 
   @override
@@ -66,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget bodyContainer() {
     Color? selectedColor = tabItems[selectedPos].circleColor;
-    String? slogan;
+    String slogan;
     switch (selectedPos) {
       case 0:
         slogan = "Family, Happiness, Food";
@@ -80,6 +81,9 @@ class _MyHomePageState extends State<MyHomePage> {
       case 3:
         slogan = "Noise, Panic, Ignore";
         break;
+      default:
+        slogan = "";
+        break;
     }
 
     return GestureDetector(
@@ -89,8 +93,9 @@ class _MyHomePageState extends State<MyHomePage> {
         color: selectedColor,
         child: Center(
           child: Text(
-            slogan??'',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+            slogan,
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
       ),
@@ -111,6 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
       selectedPos: selectedPos,
       barHeight: bottomNavBarHeight,
       barBackgroundColor: Colors.white,
+      backgroundBoxShadow: <BoxShadow>[],
       animationDuration: Duration(milliseconds: 300),
       selectedCallback: (int? selectedPos) {
         setState(() {
