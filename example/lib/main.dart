@@ -34,8 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
   double bottomNavBarHeight = 60;
 
   List<TabItem> tabItems = List.of([
-    TabItem(Icons.home, "Home", Colors.blue,
-        labelStyle: TextStyle(fontWeight: FontWeight.normal)),
+    TabItem(Icons.home, "Home", Colors.blue, labelStyle: TextStyle(fontWeight: FontWeight.normal)),
     TabItem(Icons.search, "Search", Colors.orange,
         labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
     TabItem(Icons.layers, "Reports", Colors.red),
@@ -94,8 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Center(
           child: Text(
             slogan,
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
       ),
@@ -116,11 +114,13 @@ class _MyHomePageState extends State<MyHomePage> {
       selectedPos: selectedPos,
       barHeight: bottomNavBarHeight,
       barBackgroundColor: Colors.white,
-      backgroundBoxShadow: <BoxShadow>[],
+      backgroundBoxShadow: <BoxShadow>[
+        BoxShadow(color: Colors.black45, blurRadius: 10.0),
+      ],
       animationDuration: Duration(milliseconds: 300),
       selectedCallback: (int? selectedPos) {
         setState(() {
-          this.selectedPos = selectedPos??0;
+          this.selectedPos = selectedPos ?? 0;
           print(_navigationController.value);
         });
       },
