@@ -1,3 +1,6 @@
+## [2.1.0]
+* add backgroundBoxShadow property
+
 ## [2.0.0]
 * migrate to support null-safety
 * update embedding android in Example
