@@ -1,4 +1,7 @@
-## [2.1.1]
+## [2.1.2]
+
+- Change README.md
+- Revert tests
 
 - Transfer package to another github account
 - Some minor dev dependency and code style changes
