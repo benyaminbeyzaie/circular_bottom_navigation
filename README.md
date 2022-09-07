@@ -27,7 +27,7 @@ Support us by becoming a patron on Patreon
 
 ```kotlin
 dependencies:
-  circular_bottom_navigation: ^2.1.0
+  circular_bottom_navigation: ^2.1.1
 ```
 
 ## 2 - Install it
