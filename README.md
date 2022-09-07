@@ -5,53 +5,30 @@
 </a>
 
 [![pub package](https://img.shields.io/pub/v/circular_bottom_navigation.svg)](https://pub.dartlang.org/packages/circular_bottom_navigation)
-[![APK](https://img.shields.io/badge/APK-Demo-brightgreen.svg)](https://github.com/imaNNeoFighT/circular_bottom_navigation/raw/master/repo_files/CircularBottomNavExample-0.0.3.apk)
+[![APK](https://img.shields.io/badge/APK-Demo-brightgreen.svg)](https://github.com/benyaminbeyzaie/circular_bottom_navigation/raw/master/repo_files/CircularBottomNavExample-0.0.3.apk)
 
-<img src="https://github.com/imaNNeoFighT/circular_bottom_navigation/raw/master/repo_files/images/uplabs_demo.gif" width="300">
+<img src="https://github.com/benyaminbeyzaie/circular_bottom_navigation/raw/master/repo_files/images/uplabs_demo.gif" width="300">
 
 This is implementation of an artwork in [Uplabs](https://www.uplabs.com/posts/bottom-tab)
 
-<img src="https://github.com/imaNNeoFighT/circular_bottom_navigation/raw/master/repo_files/images/demo.gif" width="300">
-
-# Donate
-
-Support us by becoming a patron on Patreon
-
-[![Patreon](https://c5.patreon.com/external/logo/become_a_patron_button.png)](https://www.patreon.com/imanneo)
+<img src="https://github.com/benyaminbeyzaie/circular_bottom_navigation/raw/master/repo_files/images/demo.gif" width="300">
 
 # Let's get started
 
-## 1 - Depend on it
+## 1 - Install and import
 
-### Add this to your package's pubspec.yaml file:
-
-```kotlin
-dependencies:
-  circular_bottom_navigation: ^2.1.1
-```
-
-## 2 - Install it
-
-### Install packages from the command line:
-
-```kotlin
-flutter packages get
-```
-
-## 3 - Import it
-
-### Now in your Dart code, you can use:
+### In your Dart code, you can use:
 
 ```kotlin
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:circular_bottom_navigation/tab_item.dart';
 ```
 
-## 4 - CheatSheet
+## 2 - CheatSheet
 
-<img src="https://github.com/imaNNeoFighT/circular_bottom_navigation/raw/master/repo_files/images/cheatsheet.jpg" width="700">
+<img src="https://github.com/benyaminbeyzaie/circular_bottom_navigation/raw/master/repo_files/images/cheatsheet.jpg" width="700">
 
-## 5 - Use it like a charm
+## 3 - Use it like a charm
 
 ### Make your TabItems
 
