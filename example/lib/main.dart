@@ -12,7 +12,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'circular_bottom_navigation'),
+      home: Directionality(
+        // use this property to change direction in whole app
+        // CircularBottomNavigation will act accordingly
+        textDirection: TextDirection.ltr,
+        child: MyHomePage(title: 'circular_bottom_navigation'),
+      ),
     );
   }
 }
