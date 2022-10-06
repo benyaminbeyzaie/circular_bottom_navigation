@@ -52,6 +52,23 @@ CircularBottomNavigation(
     )
 ```
 
+CircularBottomNavigation supports RTL designs, If you wrap your widget in a `Directionality` widget and set the `textDirection` property you can customize the direction:
+
+```
+MaterialApp(
+  title: 'Circular Bottom Navigation Demo',
+  theme: ThemeData(
+    primarySwatch: Colors.blue,
+  ),
+  home: Directionality(
+    // use this property to change direction in whole app
+    // CircularBottomNavigation will act accordingly
+    textDirection: TextDirection.rtl,
+    child: MyHomePage(title: 'circular_bottom_navigation'),
+  ),
+);
+```
+
 ### How to use CircularBottomNavigationController
 
 With this controller you can read the current tab position, and set a tab position on widget (without needing to rebuild the tree) with the widget built in animation.
