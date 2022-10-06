@@ -1,3 +1,7 @@
+## [2.2.0]
+
+- Add RTL support
+
 ## [2.1.2]
 
 - Change README.md
