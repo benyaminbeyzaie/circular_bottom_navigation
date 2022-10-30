@@ -12,7 +12,8 @@ class CircularBottomNavigation extends StatefulWidget {
   final List<TabItem> tabItems;
   final int selectedPos;
   final double barHeight;
-  final Color barBackgroundColor;
+  final Color? barBackgroundColor;
+  final Gradient? barBackgroundGradient;
   final double circleSize;
   final double circleStrokeWidth;
   final double iconsSize;
@@ -27,7 +28,8 @@ class CircularBottomNavigation extends StatefulWidget {
     this.tabItems, {
     this.selectedPos = 0,
     this.barHeight = 60,
-    this.barBackgroundColor = Colors.white,
+    barBackgroundColor,
+    this.barBackgroundGradient,
     this.circleSize = 58,
     this.circleStrokeWidth = 4,
     this.iconsSize = 32,
@@ -39,6 +41,12 @@ class CircularBottomNavigation extends StatefulWidget {
     backgroundBoxShadow,
   })  : backgroundBoxShadow = backgroundBoxShadow ??
             [BoxShadow(color: Colors.grey, blurRadius: 2.0)],
+        barBackgroundColor =
+            (barBackgroundGradient == null && barBackgroundColor == null)
+                ? Colors.white
+                : barBackgroundColor,
+        assert(barBackgroundColor == null || barBackgroundGradient == null,
+            "Both barBackgroundColor and barBackgroundGradient can't be not null."),
         assert(tabItems.length != 0, "tabItems is required");
 
   @override
@@ -155,6 +163,7 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             color: widget.barBackgroundColor,
+            gradient: widget.barBackgroundGradient,
             boxShadow: widget.backgroundBoxShadow,
           ),
         ),
@@ -183,7 +192,9 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
                           topLeft: Radius.circular(widget.circleSize / 2),
                           topRight: Radius.circular(widget.circleSize / 2),
                         ),
-                        color: widget.barBackgroundColor,
+                        color:
+                            widget.tabItems[selectedPos!].circleStrokeColor ??
+                                widget.barBackgroundColor,
                         boxShadow: widget.backgroundBoxShadow,
                       ),
                     ),
@@ -196,7 +207,9 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
                           bottomLeft: Radius.circular(widget.circleSize / 2),
                           bottomRight: Radius.circular(widget.circleSize / 2),
                         ),
-                        color: widget.barBackgroundColor,
+                        color:
+                            widget.tabItems[selectedPos!].circleStrokeColor ??
+                                widget.barBackgroundColor,
                       ),
                     ),
                   ),
