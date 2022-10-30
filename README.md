@@ -32,18 +32,18 @@ import 'package:circular_bottom_navigation/tab_item.dart';
 
 ### Make your TabItems
 
-```kotlin
+```dart
 List<TabItem> tabItems = List.of([
     TabItem(Icons.home, "Home", Colors.blue, labelStyle: TextStyle(fontWeight: FontWeight.normal)),
     TabItem(Icons.search, "Search", Colors.orange, labelStyle: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
-    TabItem(Icons.layers, "Reports", Colors.red),
+    TabItem(Icons.layers, "Reports", Colors.red, circleStrokeColor: Colors.black),
     TabItem(Icons.notifications, "Notifications", Colors.cyan),
   ]);
 ```
 
 ### Use this widget everywhere you want
 
-```kotlin
+```dart
 CircularBottomNavigation(
       tabItems,
       selectedCallback: (int selectedPos) {
@@ -54,7 +54,7 @@ CircularBottomNavigation(
 
 CircularBottomNavigation supports RTL designs, If you wrap your widget in a `Directionality` widget and set the `textDirection` property you can customize the direction:
 
-```
+```dart
 MaterialApp(
   title: 'Circular Bottom Navigation Demo',
   theme: ThemeData(
@@ -75,14 +75,14 @@ With this controller you can read the current tab position, and set a tab positi
 
 Just create a new instance of controller
 
-```kotlin
+```dart
 CircularBottomNavigationController _navigationController =
 new CircularBottomNavigationController(selectedPos);
 ```
 
 Then pass it in your widget
 
-```kotlin
+```dart
 CircularBottomNavigation(
       tabItems,
       controller: _navigationController,
@@ -91,7 +91,7 @@ CircularBottomNavigation(
 
 Now you can write (set new position with animation) and read value from it everywhere you want
 
-```kotlin
+```dart
 // Write a new value
 _navigationController.value = 0;
 
