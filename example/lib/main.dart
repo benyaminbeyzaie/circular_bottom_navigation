@@ -60,6 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
       Icons.layers,
       "Reports",
       Colors.red,
+      circleStrokeColor: Colors.black,
     ),
     TabItem(
       Icons.notifications,
@@ -144,7 +145,16 @@ class _MyHomePageState extends State<MyHomePage> {
       controller: _navigationController,
       selectedPos: selectedPos,
       barHeight: bottomNavBarHeight,
+      // use either barBackgroundColor or barBackgroundGradient to have a gradient on bar background
       barBackgroundColor: Colors.white,
+      // barBackgroundGradient: LinearGradient(
+      //   begin: Alignment.bottomCenter,
+      //   end: Alignment.topCenter,
+      //   colors: [
+      //     Colors.blue,
+      //     Colors.red,
+      //   ],
+      // ),
       backgroundBoxShadow: <BoxShadow>[
         BoxShadow(color: Colors.black45, blurRadius: 10.0),
       ],
