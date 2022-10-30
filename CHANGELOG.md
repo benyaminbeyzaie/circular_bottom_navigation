@@ -1,3 +1,8 @@
+## [2.3.0]
+
+- Add gradient for bar background
+- Add circle stroke color
+
 ## [2.2.0]
 
 - Add RTL support
