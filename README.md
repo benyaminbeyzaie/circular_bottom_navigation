@@ -26,7 +26,7 @@ import 'package:circular_bottom_navigation/tab_item.dart';
 
 ## 2 - CheatSheet
 
-<img src="https://github.com/benyaminbeyzaie/circular_bottom_navigation/raw/master/repo_files/images/cheatsheet.jpg" width="700">
+<img src="https://github.com/benyaminbeyzaie/circular_bottom_navigation/raw/master/repo_files/images/cheatsheet.png" width="700">
 
 ## 3 - Use it like a charm
 
