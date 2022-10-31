@@ -24,6 +24,10 @@ class CircularBottomNavigation extends StatefulWidget {
   final CircularBottomNavSelectedCallback? selectedCallback;
   final CircularBottomNavigationController? controller;
 
+  /// If true, allows a selected tab icon to execute its callback even if it's
+  /// already selected.
+  final bool allowSelectedIconCallback;
+
   CircularBottomNavigation(
     this.tabItems, {
     this.selectedPos = 0,
@@ -38,6 +42,7 @@ class CircularBottomNavigation extends StatefulWidget {
     this.animationDuration = const Duration(milliseconds: 300),
     this.selectedCallback,
     this.controller,
+    this.allowSelectedIconCallback = false,
     backgroundBoxShadow,
   })  : backgroundBoxShadow = backgroundBoxShadow ??
             [BoxShadow(color: Colors.grey, blurRadius: 2.0)],
@@ -302,6 +307,17 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
             rect: r,
           ),
         );
+      } else if (widget.allowSelectedIconCallback == true) {
+        Rect selectedRect = Rect.fromLTWH(r.left, 0, r.width, fullHeight);
+        children.add(
+          Positioned.fromRect(
+            child: ClipRRect(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(40.0)),
+              child: GestureDetector(onTap: _selectedCallback),
+            ),
+            rect: selectedRect,
+          ),
+        );
       }
     });
 
@@ -323,6 +339,10 @@ class _CircularBottomNavigationState extends State<CircularBottomNavigation>
         previousSelectedPos!.toDouble(), selectedPos!.toDouble());
     selectedPosAnimation.addListener(onSelectedPosAnimate);
 
+    _selectedCallback();
+  }
+
+  void _selectedCallback() {
     if (widget.selectedCallback != null) {
       widget.selectedCallback!(selectedPos);
     }
