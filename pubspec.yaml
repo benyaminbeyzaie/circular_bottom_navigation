@@ -1,16 +1,16 @@
 name: circular_bottom_navigation
 description: Circular Bottom Navigation (or maybe a tab bar)
-version: 2.3.0
+version: 2.4.0
 homepage: https://github.com/benyaminbeyzaie/circular_bottom_navigation
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=3.1.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
 dev_dependencies:
-  flutter_lints: ^1.0.4
+  flutter_lints: ^3.0.1
   flutter_test:
     sdk: flutter

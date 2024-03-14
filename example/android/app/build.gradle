@@ -33,7 +33,7 @@ android {
 
     defaultConfig {
         applicationId "com.ikhoshabi.circular_bottom_nav_example"
-        minSdkVersion 16
+        minSdkVersion flutter.minSdkVersion
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
