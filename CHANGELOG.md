@@ -1,3 +1,7 @@
+## [2.4.0]
+
+- Update flutter and dart sdk
+
 ## [2.3.0]
 
 - Add gradient for bar background
