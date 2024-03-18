@@ -26,6 +26,6 @@ jobs:
         run: flutter test
 
       - name: Publish package
-        run: flutter pub publish --dry-run
+        run: flutter pub publish
         env:
           PUB_CACHE: ${{ github.workspace }}/.pub-cache
