@@ -6,13 +6,12 @@ on:
 
 jobs:
   publish:
-
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Publish
-        uses: sakebook/actions-flutter-pub-publisher@v1.3.1
+        uses: k-paxian/dart-package-publisher@master
         with:
-          credential: ${{ secrets.CREDENTIAL_JSON }}
+          credentialJson: ${{ secrets.CREDENTIAL_JSON }}
